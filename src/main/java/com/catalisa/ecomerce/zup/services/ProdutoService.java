@@ -1,6 +1,5 @@
 package com.catalisa.ecomerce.zup.services;
 
-
 import com.catalisa.ecomerce.zup.model.Produto;
 import com.catalisa.ecomerce.zup.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -21,15 +20,14 @@ public class ProdutoService {
 
     public void cadastrarProduto(Produto produto) {
         if (produtoRepository.findByNome(produto.getNome()).isPresent()) {
-            throw new IllegalArgumentException("Já existe um produto com esse nome.");
-        }
-        if (produto.getPreco() <= 0 || produto.getQuantidade() < 0) {
-            throw new IllegalArgumentException("Preço ou quantidade inválidos.");
+            throw new IllegalArgumentException("Produto com o mesmo nome já cadastrado.");
         }
         produtoRepository.save(produto);
     }
 
     public void deletarProduto(String nome) {
-        produtoRepository.deleteByNome(nome);
+        Produto produto = produtoRepository.findByNome(nome)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
+        produtoRepository.delete(produto);
     }
 }
