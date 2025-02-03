@@ -1,18 +1,20 @@
 package com.catalisa.ecomerce.zup.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class Cliente {
+    @NotBlank(message = "O nome do cliente não pode estar vazio.")
     private String nome;
+
+    @Pattern(regexp = "\\d{11}", message = "CPF inválido. Deve conter 11 dígitos.")
     private String cpf;
+
+    @Email(message = "Email inválido.")
     private String email;
 
-
-    //Construtor, getters e setters
-    public Cliente(String nome, String cpf, String email) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-    }
-
+    // Getters e Setters
     public String getNome() {
         return nome;
     }
