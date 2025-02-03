@@ -9,8 +9,7 @@ import java.util.Optional;
 
 @Repository
 public class ProdutoRepository {
-    private List<Produto> produtos = new ArrayList<>();
-
+    private final List<Produto> produtos = new ArrayList<>();
 
     public List<Produto> findAll() {
         return produtos;
@@ -22,7 +21,7 @@ public class ProdutoRepository {
                 .findFirst();
     }
 
-    private void save(Produto produto) {
+    public void save(Produto produto) {
         produtos.add(produto);
     }
 
