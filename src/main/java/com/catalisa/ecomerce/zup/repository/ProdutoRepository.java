@@ -1,6 +1,6 @@
 package com.catalisa.ecomerce.zup.repository;
 
-import com.catalisa.ecomerce.zup.controllers.Produto;
+import com.catalisa.ecomerce.zup.model.Produto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

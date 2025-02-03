@@ -1,4 +1,4 @@
-package com.catalisa.ecomerce.zup.controllers;
+package com.catalisa.ecomerce.zup.model;
 
 public class Produto {
     private String nome;

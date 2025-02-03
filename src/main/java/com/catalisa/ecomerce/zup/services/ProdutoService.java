@@ -1,7 +1,7 @@
 package com.catalisa.ecomerce.zup.services;
 
 
-import com.catalisa.ecomerce.zup.controllers.Produto;
+import com.catalisa.ecomerce.zup.model.Produto;
 import com.catalisa.ecomerce.zup.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
