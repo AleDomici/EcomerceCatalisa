@@ -47,13 +47,9 @@ public class ClienteController {
     public ResponseEntity<Cliente> buscarClientePorCpf(@PathVariable String cpf) {
         try {
             Cliente cliente = clienteService.buscarClientePorCpf(cpf);
-            if (cliente != null) {
-                return ResponseEntity.ok(cliente);
-            } else {
-                return ResponseEntity.badRequest().body(null);
-            }
+            return ResponseEntity.ok(cliente);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.notFound().build();
         }
     }
 }
