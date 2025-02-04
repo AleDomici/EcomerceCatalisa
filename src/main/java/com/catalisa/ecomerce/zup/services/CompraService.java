@@ -18,16 +18,23 @@ public class CompraService {
     }
 
     public void registrarCompra(Compra compra) {
+        // Busca o cliente pelo CPF
         Cliente cliente = clienteRepository.findByCpf(compra.getCpfCliente())
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
 
+        // Busca o produto pelo ID
         Produto produto = produtoRepository.findById(compra.getIdProduto())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
 
+        // Verifica se há estoque suficiente
         if (produto.getQuantidade() < compra.getQuantidade()) {
             throw new IllegalArgumentException("Produto em falta no estoque.");
         }
 
+        // Atualiza a quantidade do produto no estoque
         produto.setQuantidade(produto.getQuantidade() - compra.getQuantidade());
+
+        // Salva o estado atualizado do produto
+        produtoRepository.save(produto);
     }
 }
