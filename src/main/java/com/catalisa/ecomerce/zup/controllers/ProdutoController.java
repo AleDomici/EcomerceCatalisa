@@ -1,59 +1,82 @@
 package com.catalisa.ecomerce.zup.controllers;
 
 import com.catalisa.ecomerce.zup.model.Produto;
-import com.catalisa.ecomerce.zup.repository.ProdutoRepository;
+import com.catalisa.ecomerce.zup.services.ProdutoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
-    private final ProdutoRepository produtoRepository;
+    private final ProdutoService produtoService;
 
-    public ProdutoController(ProdutoRepository produtoRepository) {
-        this.produtoRepository = produtoRepository;
+    // Injeção de dependência via construtor
+    public ProdutoController(ProdutoService produtoService) {
+        this.produtoService = produtoService;
     }
 
     // Endpoint para cadastrar um novo produto
     @PostMapping
     public ResponseEntity<String> cadastrarProduto(@RequestBody Produto produto) {
-        produtoRepository.save(produto);
-        return ResponseEntity.ok("Produto cadastrado com sucesso.");
+        try {
+            produtoService.cadastrarProduto(produto);
+            return ResponseEntity.ok("Produto cadastrado com sucesso.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     // Endpoint para buscar produto por ID
     @GetMapping("/{id}")
     public ResponseEntity<Produto> buscarProdutoPorId(@PathVariable Long id) {
-        Optional<Produto> produto = produtoRepository.findById(id);
-        return produto.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return produtoService.listarProdutos().stream()
+                .filter(produto -> produto.getId().equals(id))
+                .findFirst()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Endpoint para buscar produto por nome
     @GetMapping("/nome/{nome}")
     public ResponseEntity<Produto> buscarProdutoPorNome(@PathVariable String nome) {
-        Optional<Produto> produto = produtoRepository.findByNome(nome);
-        return produto.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return produtoService.listarProdutos().stream()
+                .filter(produto -> produto.getNome().equalsIgnoreCase(nome))
+                .findFirst()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Endpoint para listar todos os produtos
     @GetMapping
     public ResponseEntity<List<Produto>> listarProdutos() {
-        return ResponseEntity.ok(produtoRepository.findAll());
+        return ResponseEntity.ok(produtoService.listarProdutos());
     }
 
     // Endpoint para deletar um produto por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarProduto(@PathVariable Long id) {
-        Optional<Produto> produto = produtoRepository.findById(id);
-        if (produto.isPresent()) {
-            produtoRepository.delete(produto.get());
+        try {
+            Produto produto = produtoService.listarProdutos().stream()
+                    .filter(p -> p.getId().equals(id))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
+            produtoService.deletarProduto(produto.getNome());
             return ResponseEntity.ok("Produto deletado com sucesso.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.notFound().build();
+    }
+
+    // Endpoint para deletar um produto por nome
+    @DeleteMapping("/nome/{nome}")
+    public ResponseEntity<String> deletarProdutoPorNome(@PathVariable String nome) {
+        try {
+            produtoService.deletarProduto(nome);
+            return ResponseEntity.ok("Produto deletado com sucesso.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
