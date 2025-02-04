@@ -1,9 +1,20 @@
 package com.catalisa.ecomerce.zup.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class Produto {
-    private Long id; // Campo para o ID
+    private Long id;
+
+    @NotBlank(message = "O nome do produto não pode estar vazio.")
     private String nome;
+
+    @NotNull(message = "O preço do produto é obrigatório.")
+    @PositiveOrZero(message = "O preço deve ser maior que 0.")
     private Double preco;
+
+    @PositiveOrZero(message = "A quantidade deve ser maior ou igual a 0.")
     private int quantidade;
 
     // Getters e Setters
