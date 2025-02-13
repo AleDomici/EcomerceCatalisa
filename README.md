@@ -1,160 +1,89 @@
-# E-Commerce Catalisa
 
-Este projeto é uma **API RESTful** para um sistema básico de E-Commerce. Ele permite o cadastro de produtos, clientes e a realização de compras, com validações e manipulação de dados.
-
----
-
-## **Funcionalidades**
-
-### **Cadastro de Produtos**
-- **Nome**: `String` (não pode ser repetido).
-- **Preço**: `Double` (deve ser maior que 0).
-- **Quantidade**: `int` (deve ser maior ou igual a 0).
-- **Regras**:
-  - Não será permitido cadastrar produtos com o mesmo nome.
-
-### **Cadastro de Clientes**
-- **Nome**: `String`.
-- **CPF**: `String` (único e válido).
-- **Email**: `String` (único e válido).
-- **Regras**:
-  - Não será permitido cadastrar clientes com o mesmo CPF ou Email.
-
-### **Realização de Compras**
-- Verifica se o produto está disponível em estoque (quantidade maior que 0).
-- Atualiza a quantidade do produto no estoque após a compra.
-
----
-
-## **Endpoints**
-
-### **Produtos**
-- **GET /produtos**  
-  Retorna a lista de todos os produtos cadastrados.
-
-- **POST /produtos**  
-  Cadastra um novo produto.  
-  **Exemplo de Requisição**:
-  ```json
-  {
-    "nome": "Produto A",
-    "preco": 100.0,
-    "quantidade": 10
-  }
-
-DELETE /produtos/{id}
-
-Deleta um produto pelo ID.
-
-GET /produtos/nome/{nome}
-
-Retorna um produto pelo nome.
-
-GET /produtos/{id}
-
-Retorna um produto pelo ID.
-
-Clientes
-POST /clientes
-
-Cadastra um novo cliente.
-
-Exemplo de Requisição:
+![Logo](src/main/resources/images/logo.png)
 
 
-```json
-{
-  "nome": "João Silva",
-  "cpf": "12345678901",
-  "email": "joao.silva@email.com"
-}
-```
-GET /clientes/{cpf}
+# API iCrud - Catalisa Zup
 
-Retorna os dados de um cliente específico pelo CPF.
+##### Bem-vindo ao repositório da API iCrud, um projeto de E-commerce desenvolvido para gerenciar produtos de forma eficiente e escalável. Este sistema foi projetado utilizando Java com o framework Spring Boot, seguindo boas práticas de desenvolvimento e arquitetura RESTful.
 
-PUT /clientes/{cpf}
 
-Atualiza os dados de um cliente.
 
-Exemplo de Requisição:
-```json
-{
-  "nome": "João Silva Atualizado",
-  "cpf": "12345678901",
-  "email": "joao.silva.atualizado@email.com"
-}
-```
-GET /clientes
-Retorna a lista de todos os clientes cadastrados.
 
-Compras
-POST /compras
+## 📋Funcionalidades
 
-Registra uma nova compra e atualiza a quantidade do produto no estoque.
-Exemplo de Requisição:
-```
-{
-  "cpfCliente": "12345678901",
-  "idProduto": 1,
-  "quantidade": 2
-}
+- Cadastro de Produtos: Adicione novos produtos ao sistema.
+- Listagem de Produtos: Consulte todos os produtos cadastrados.
+- Busca por ID: Encontre produtos específicos pelo seu identificador único.
+- Deleção de Produtos: Remova produtos do sistema de forma segura.
+- Atualizações Futuras: Planejamos adicionar funcionalidades como autenticação, categorias de produtos e muito mais!
 
+
+## 🚀 Tecnologias Utilizadas
+
+**Java 17:** Linguagem principal do projeto.
+
+**Spring Boot 3.x:** Framework para desenvolvimento rápido e eficiente.
+
+**Maven:** Gerenciador de dependências.
+
+**H2 Database:** Banco de dados em memória para testes e desenvolvimento.
+
+**Lombok:** Redução de boilerplate no código.
+
+**Postman:**  Testes unitários para garantir a qualidade do código.
+## 🚀 Como Executar o Projeto
+
+1. Clone o repositório:
+
+```bash
+  git clone https://github.com/seu-usuario/ecommerce-api.git
+  cd ecommerce-api
 ```
 
-# Regras de Negócio
+2. Instale as dependências:
 
-## Cadastro de Produtos
-Não será permitido cadastrar produtos com o mesmo nome.
-O preço deve ser maior que 0.
-A quantidade deve ser maior ou igual a 0.
+```bash
+mvn clean install
+```
 
-## Cadastro de Clientes
-Não será permitido cadastrar clientes com o mesmo CPF ou Email.
-O CPF deve ser válido.
+3. Execute a aplicação:
 
-## Realização de Compras
-O sistema deve verificar se o produto está disponível em estoque (quantidade maior que 0).
-Caso contrário, deve retornar um erro 400 com a mensagem de que o produto está em falta.
-O sistema deve reduzir a quantidade do produto no estoque após a compra.
-
-# Tecnologias Utilizadas
-Java 17
-Spring Boot
-Jakarta Validation
-Maven
-
-# Como Executar o Projeto
-
-Clone o repositório:
-git clone https://github.com/seu-usuario/ecommerce-api.git
-cd ecommerce-api
-Compile e execute o projeto:
-
-
-
+```bash
 mvn spring-boot:run
-Acesse a API em: http://localhost:8080
+```
+4. Acesse a API:
 
-# Validações e Tratamento de Erros
+URL base: http://localhost:8080
 
-## Cadastro de Produtos
-Nome duplicado: Retorna erro 400 com a mensagem "Produto com o mesmo nome já cadastrado."
-Preço inválido: Retorna erro 400 com a mensagem "O preço deve ser maior que 0."
-Quantidade inválida: Retorna erro 400 com a mensagem "A quantidade deve ser maior ou igual a 0."
+## 📌 Contribuição
 
-## Cadastro de Clientes
-CPF duplicado: Retorna erro 400 com a mensagem "CPF já cadastrado."
-Email duplicado: Retorna erro 400 com a mensagem "Email já cadastrado."
-CPF inválido: Retorna erro 400 com a mensagem "CPF inválido."
-Email inválido: Retorna erro 400 com a mensagem "Email inválido."
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
 
-## Realização de Compras
-Produto em falta: Retorna erro 400 com a mensagem "Produto em falta no estoque."
-Cliente ou Produto não encontrado: Retorna erro 400 com a mensagem correspondente.
+1. Faça um fork do projeto.
 
-# Melhorias Futuras
-Implementar autenticação e autorização.
-Adicionar paginação nos endpoints de listagem.
-Criar testes unitários e de integração.
-Adicionar logs para rastreamento de operações.
+2. Crie uma branch para sua feature:
+
+```bash
+git checkout -b feature/nova-feature
+```
+
+3. Commit suas alterações:
+```bash
+git commit -m "feat: descrição da nova feature"
+```
+
+4. Envie para o repositório remoto:
+```bash
+git push origin feature/nova-feature
+```
+
+5. Abra um Pull Request.
+
+
+
+## Autores
+
+- [@AleDomici](https://github.com/AleDomici)
+- [@aledomicianos](https://github.com/aledomicianos)
+
+
