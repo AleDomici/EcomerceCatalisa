@@ -1,5 +1,3 @@
-![logo](src/main/resources/images/logo.png)
-
 <div align="center">
   <img src="images/logo.png" alt="logo" width="200">
 </div>
