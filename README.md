@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/main/resources/images/logo.png" alt="Logo" width="200">
+  <img src="src/main/resources/images/logo.png" alt="Logo" width="300">
 </div>
 
 # API iCrud - Catalisa Zup
