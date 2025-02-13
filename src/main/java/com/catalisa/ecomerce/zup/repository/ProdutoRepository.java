@@ -27,7 +27,7 @@ public class ProdutoRepository {
     // Busca um produto pelo nome
     public Optional<Produto> findByNome(String nome) {
         return produtos.stream()
-                .filter(p -> p.getNome().equalsIgnoreCase(nome))
+                .filter(p -> p.getNome().equalsIgnoreCase(nome)) // Compara ignorando maiúsculas/minúsculas
                 .findFirst();
     }
 
