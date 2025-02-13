@@ -1,5 +1,4 @@
-
-![Logo](src/main/resources/images/logo.png)
+![](src/main/resources/images/logo.png)
 
 <div align="center">
   <img src="images/logo.png" alt="Logo" width="200">
