@@ -19,12 +19,12 @@ public class ProdutoController {
 
     // Endpoint para cadastrar um novo produto
     @PostMapping
-    public ResponseEntity<String> cadastrarProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto) {
         try {
             produtoService.cadastrarProduto(produto);
-            return ResponseEntity.ok("Produto cadastrado com sucesso.");
+            return ResponseEntity.ok(produto); // Retorna o objeto criado
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(null); // Retorna null em caso de erro *por enquanto
         }
     }
 
