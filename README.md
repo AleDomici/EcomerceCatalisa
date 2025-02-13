@@ -1,7 +1,7 @@
 ![logo](src/main/resources/images/logo.png)
 
 <div align="center">
-  <img src="images/logo.png" alt="Logo" width="200">
+  <img src="images/logo.png" alt="logo" width="200">
 </div>
 
 # API iCrud - Catalisa Zup
