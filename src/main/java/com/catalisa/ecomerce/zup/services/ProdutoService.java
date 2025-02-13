@@ -5,6 +5,7 @@ import com.catalisa.ecomerce.zup.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -25,8 +26,14 @@ public class ProdutoService {
         produtoRepository.save(produto);
     }
 
-    public void deletarProduto(String nome) {
-        Produto produto = produtoRepository.findByNome(nome)
+    // Buscar produto por ID
+    public Optional<Produto> buscarProdutoPorId(Long id) {
+        return produtoRepository.findById(id);
+    }
+
+    // Deletar produto por ID
+    public void deletarProdutoPorId(Long id) {
+        Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
         produtoRepository.delete(produto);
     }

@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/") // Mapeia a raiz da aplicação
     public String home() {
-        return "Bem-vindo à API!";
+        return "Bem-vindo ao iCrud!";
     }
 }

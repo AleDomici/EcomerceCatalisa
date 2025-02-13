@@ -17,12 +17,12 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrarCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente) {
         try {
             clienteService.cadastrarCliente(cliente);
-            return ResponseEntity.ok("Cliente cadastrado com sucesso.");
+            return ResponseEntity.ok(cliente); // Retorna o objeto criado
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(null); // Retorna null em caso de erro *por enquanto
         }
     }
 
@@ -47,7 +47,7 @@ public class ClienteController {
     public ResponseEntity<Cliente> buscarClientePorCpf(@PathVariable String cpf) {
         try {
             Cliente cliente = clienteService.buscarClientePorCpf(cpf);
-            return ResponseEntity.ok(cliente);
+            return ResponseEntity.ok(cliente); // O cliente retornado já inclui o ID
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
