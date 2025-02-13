@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="src/main/resources/images/logo-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="src/main/resources/images/logo-light.png">
-  <img alt="Logo" src="src/main/resources/images/logo-light.png" width="300">
+  <img alt="Logo" src="src/main/resources/images/logo-dark.png" width="300">
 </picture>
 
 # API iCrud - Catalisa Zup
