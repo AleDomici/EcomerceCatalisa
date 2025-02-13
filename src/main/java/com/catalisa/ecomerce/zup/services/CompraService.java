@@ -18,8 +18,11 @@ public class CompraService {
     }
 
     public void registrarCompra(Compra compra) {
+        // Normaliza o CPF para evitar problemas de formatação
+        String cpfNormalizado = compra.getCpfCliente().replaceAll("\\D", "");
+
         // Busca o cliente pelo CPF
-        Cliente cliente = clienteRepository.findByCpf(compra.getCpfCliente())
+        Cliente cliente = clienteRepository.findByCpf(cpfNormalizado)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
 
         // Busca o produto pelo ID
